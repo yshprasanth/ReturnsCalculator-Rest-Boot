@@ -8,9 +8,12 @@ import com.returns.calculator.domain.server.Trade;
 import java.math.BigDecimal;
 import java.util.Date;
 
+/**
+ * FxTrade implementation of server-side Trade object
+ */
 public class FxTrade implements Trade{
 
-    private static final long serialVersionUID = -121212121L;
+    private static final long serialVersionUID = -12L;
 
     private Integer tradeId;
     private String clientName;
@@ -157,6 +160,12 @@ public class FxTrade implements Trade{
         this.paymentLength = paymentLength;
     }
 
+    /**
+     * Comparable interface implementation to compare two FxTrade objects for equality check.
+     *
+     * @param o
+     * @return
+     */
     @Override
     public int compareTo(Trade o) {
 

@@ -4,6 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
+/**
+ * Main class and entry point for Spring Boot
+ */
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.returns.calculator.*"})
 public class MainApp {

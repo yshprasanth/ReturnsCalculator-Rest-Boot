@@ -5,20 +5,33 @@ import com.returns.calculator.domain.server.impl.FxTrade;
 import com.returns.calculator.domain.service.IContext;
 import com.returns.calculator.service.builder.ITradeBuilder;
 import com.returns.calculator.service.factory.ITradeFactory;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+/**
+ * Factory class to create Trade objects
+ */
 @Component
 @Qualifier("fxTradeFactory")
 public class FxTradeFactory implements ITradeFactory<FxTrade> {
+
+    Logger logger = LogManager.getLogger(getClass());
 
     @Autowired
     @Qualifier("fxTradeBuilder")
     ITradeBuilder<FxTrade> tradeBuilder;
 
+    /**
+     * Factory method that will determine the type of Trade and create an object accordingly.
+     *
+     * @param context
+     * @return
+     */
     @Override
     public Optional<FxTrade> createTrade(Optional<? extends IContext> context) {
         FxTrade trade = null;
@@ -38,7 +51,11 @@ public class FxTradeFactory implements ITradeFactory<FxTrade> {
                     trade = new FxTrade();
             }
 
+            logger.info("Created trade object:" + trade);
+
             tradeBuilder.buildTrade(context, Optional.of(trade));
+
+            logger.info("Built trade object:" + trade);
         }
 
         return Optional.ofNullable(trade);

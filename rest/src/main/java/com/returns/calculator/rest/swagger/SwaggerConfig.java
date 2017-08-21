@@ -14,6 +14,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import static com.google.common.base.Predicates.or;
 import static springfox.documentation.builders.PathSelectors.regex;
 
+/**
+ * Swagger2 integration with Spring Rest API.
+ *
+ * Enables dev testing and GUI for Rest interface
+ */
 @EnableSwagger2
 @Configuration
 public class SwaggerConfig {
@@ -29,6 +34,10 @@ public class SwaggerConfig {
                 .build();
     }
 
+    /**
+     * List of rest end points
+     * @return
+     */
     private Predicate<String> paths() {
         return or(
                 regex("/newTradeRequest"),
@@ -36,6 +45,11 @@ public class SwaggerConfig {
                 regex("/listAllTradesForProductType"));
     }
 
+    /**
+     * API Info
+     *
+     * @return
+     */
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Swagger UI for Returns Calculator API")

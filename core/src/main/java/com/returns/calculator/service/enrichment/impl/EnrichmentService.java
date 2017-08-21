@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * Enrichment service to enrich trade data based on mappings.
+ *
+ */
 @Service
 @Qualifier("enrichmentService")
 public class EnrichmentService implements IService<FxTrade> {

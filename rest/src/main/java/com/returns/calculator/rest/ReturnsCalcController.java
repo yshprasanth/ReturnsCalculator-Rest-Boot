@@ -5,6 +5,8 @@ import com.returns.calculator.domain.metadata.ProductType;
 import com.returns.calculator.domain.server.impl.FxTrade;
 import com.returns.calculator.service.template.AbstractTradeProcessor;
 import io.swagger.annotations.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -15,13 +17,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Main Rest Controller for this prototype
+ *
+ */
 @RestController
 public class ReturnsCalcController {
+
+    Logger logger = LogManager.getLogger(getClass());
 
     @Autowired
     @Qualifier("fxTradeProcessor")
     private AbstractTradeProcessor fxTradeProcessor;
 
+    /**
+     * Swagger Config included in annotation.
+     *      *
+     * This will create new Trade object from given json.
+     *
+     *
+     * @param trade
+     * @return
+     */
     @ApiOperation(value = "newTradeRequest", nickname = "newTradeRequest")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "Trade", value = "Trade JSON Object", required = true, dataType = "Trade")
@@ -37,6 +54,7 @@ public class ReturnsCalcController {
         try {
             Integer tradeId = fxTradeProcessor.execute(Optional.of(trade));
             responseEntity = new ResponseEntity<>(tradeId, HttpStatus.OK);
+            logger.info("Created new trade : " + tradeId);
         } catch (Exception e) {
             e.printStackTrace();
             responseEntity = new ResponseEntity<>(-1, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -45,6 +63,12 @@ public class ReturnsCalcController {
         return responseEntity;
     }
 
+    /**
+     * This is provide the list of trades filtered by clientName.
+     *
+     * @param clientName
+     * @return
+     */
     @ApiOperation(value = "listAllTradesForClient", nickname = "listAllTradesForClient")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ClientName", value = "Client Name", required = true, dataType = "String")
@@ -60,6 +84,7 @@ public class ReturnsCalcController {
         try {
             List<FxTrade> list = fxTradeProcessor.getTradesPerClient(clientName);
             responseEntity = new ResponseEntity<>(list, HttpStatus.OK);
+            logger.info("Trade count by clientName: " + list.size());
         } catch (Exception e) {
             e.printStackTrace();
             responseEntity = new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -68,6 +93,12 @@ public class ReturnsCalcController {
         return responseEntity;
     }
 
+    /**
+     * This will provide the list of trades filtered by productType.
+     *
+     * @param productType
+     * @return
+     */
     @ApiOperation(value = "listAllTradesForProductType", nickname = "listAllTradesForProductType")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ProductType", value = "Product Type", required = true, dataType = "ProductType")
@@ -83,6 +114,7 @@ public class ReturnsCalcController {
         try {
             List<FxTrade> list = fxTradeProcessor.getTradesPerProductType(productType);
             responseEntity = new ResponseEntity<>(list, HttpStatus.OK);
+            logger.info("Trade count by productName: " + list.size());
         } catch (Exception e) {
             e.printStackTrace();
             responseEntity = new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);

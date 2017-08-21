@@ -8,6 +8,13 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+/**
+ * Sub-class implementation of Abstract Trade Processor.
+ *
+ * We will ideally have multiple implementations of Abstract Trade Processor for each
+ * type of trade
+ *
+ */
 @Component
 @Qualifier("fxTradeProcessor")
 public class FxTradeProcessor extends AbstractTradeProcessor<Context, FxTrade> {

@@ -7,11 +7,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * Validation Service
+ */
 @Service
 @Qualifier("validationService")
 public class ValidationService implements IService<FxTrade> {
     @Override
     public void execute(Optional<FxTrade> trade) throws Exception {
-        // Todo
+        // Do nothing
     }
 }

@@ -13,6 +13,14 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
+/**
+ * Cache implementation for the application.
+ *
+ * Stores the objects in a ConcurrentHashMap
+ * @param <S>  String (ProductType)
+ * @param <T>  Implementation of Trade Interface
+ */
+
 @Component
 @Qualifier("cache")
 @Scope("singleton")

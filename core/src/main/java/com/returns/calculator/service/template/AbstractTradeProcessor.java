@@ -6,6 +6,8 @@ import com.returns.calculator.domain.server.impl.FxTrade;
 import com.returns.calculator.domain.service.IContext;
 import com.returns.calculator.service.IService;
 import com.returns.calculator.service.factory.ITradeFactory;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -14,7 +16,19 @@ import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * Abstract Template Pattern
+ *
+ * This will define and invoke the steps in Trade creation process.
+ *
+ * Sub classes to implement each of these implementations
+ *
+ * @param <C>
+ * @param <T>
+ */
 public abstract class AbstractTradeProcessor<C extends IContext, T extends Trade> {
+
+    Logger logger = LogManager.getLogger(getClass());
 
     @Autowired
     @Qualifier("fxTradeFactory")
@@ -46,9 +60,17 @@ public abstract class AbstractTradeProcessor<C extends IContext, T extends Trade
     protected abstract void calculateInterest(Optional<T> t) throws Exception;
     protected abstract void persistTrade(Optional<T> t) throws Exception;
 
-    ExecutorService executor = Executors.newFixedThreadPool(5);
+    private ExecutorService executor = Executors.newFixedThreadPool(5);
 
-
+    /**
+     * Create a Trade with basic skeleton, generate ID
+     *
+     * Submit an async request to enrich/validate/persist trade
+     *
+     * @param context
+     * @return
+     * @throws Exception
+     */
     public final Integer execute(Optional<C> context) throws Exception{
 
         final Optional<T> trade = createTrade(context);

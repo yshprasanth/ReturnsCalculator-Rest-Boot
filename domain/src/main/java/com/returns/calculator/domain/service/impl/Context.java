@@ -8,6 +8,11 @@ import com.returns.calculator.domain.service.IContext;
 import java.math.BigDecimal;
 import java.util.Date;
 
+/**
+ * Context object that will be passed across to Factory and other services.
+ *
+ * Holds decision making attributes and the values that were passed to API
+ */
 public class Context implements IContext{
 
     private static final long serialVersionUID = -11L;
