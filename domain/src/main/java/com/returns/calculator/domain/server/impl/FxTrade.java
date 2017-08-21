@@ -1,9 +1,9 @@
-package com.returns.calculator.domain.impl;
+package com.returns.calculator.domain.server.impl;
 
-import com.returns.calculator.domain.Trade;
 import com.returns.calculator.domain.metadata.BuySell;
 import com.returns.calculator.domain.metadata.ProductType;
 import com.returns.calculator.domain.metadata.Term;
+import com.returns.calculator.domain.server.Trade;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -12,18 +12,29 @@ public class FxTrade implements Trade{
 
     private static final long serialVersionUID = -121212121L;
 
+    private Integer tradeId;
+    private String clientName;
     private ProductType productType;
     private BuySell buySellType;
     private String currency;
     private String counterParty;
     private Date tradeEffectiveDate;
     private Date tradeMaturityDate;
+    private String description;
     private BigDecimal quantity;
     private BigDecimal principal;
     private Double annualInterestRate;
     private Integer compoundFrequency;
     private Term compoundFrequencyTerm;
     private Integer paymentLength;
+
+    private Double compoundInterest;
+    private Double annualSimpleInterest;
+
+    @Override
+    public Integer getTradeId() {
+        return tradeId;
+    }
 
     @Override
     public ProductType getProductType() {
@@ -43,6 +54,11 @@ public class FxTrade implements Trade{
     @Override
     public String getCounterParty() {
         return counterParty;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
     }
 
     @Override
@@ -85,6 +101,10 @@ public class FxTrade implements Trade{
         return paymentLength;
     }
 
+    public void setTradeId(Integer tradeId) {
+        this.tradeId = tradeId;
+    }
+
     public void setProductType(ProductType productType) {
         this.productType = productType;
     }
@@ -99,6 +119,10 @@ public class FxTrade implements Trade{
 
     public void setCounterParty(String counterParty) {
         this.counterParty = counterParty;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void setTradeEffectiveDate(Date tradeEffectiveDate) {
@@ -134,12 +158,64 @@ public class FxTrade implements Trade{
     }
 
     @Override
+    public int compareTo(Trade o) {
+
+        if(this.productType==o.getProductType() &&
+                this.buySellType==o.getBuySell() &&
+                this.counterParty.equals(o.getCounterParty()) &&
+                this.currency.equals(o.getCurrency()) &&
+                this.annualInterestRate.equals(o.getAnnualInterestRate()) &&
+                this.tradeEffectiveDate.equals(o.getTradeEffectiveDate()) &&
+                this.tradeMaturityDate.equals(o.getTradeMaturityDate()) &&
+                this.compoundFrequency.equals(o.getCompoundFrequency()) &&
+                this.compoundFrequencyTerm==o.getCompoundFrequencyTerm() &&
+                this.paymentLength.equals(o.getPaymentLength()) &&
+                this.quantity.equals(o.getQuantity()) &&
+                this.principal.equals(o.getPrincipal())){
+            return 0;
+        }
+        else
+            return this.tradeId.compareTo(o.getTradeId());
+
+    }
+
+    @Override
+    public Double getCompoundInterest() {
+        return compoundInterest;
+    }
+
+    @Override
+    public Double getAnnualSimpleInterest() {
+        return annualSimpleInterest;
+    }
+
+    public void setCompoundInterest(Double compoundInterest) {
+        this.compoundInterest = compoundInterest;
+    }
+
+    public void setAnnualSimpleInterest(Double simpleInterest) {
+        this.annualSimpleInterest = simpleInterest;
+    }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
+    }
+
+    @Override
+    public String getClientName() {
+        return this.clientName;
+    }
+
+    @Override
     public String toString() {
         return "FxTrade{" +
-                "productType=" + productType +
+                "tradeId=" + tradeId +
+                ", clientName=" + clientName +
+                ", productType=" + productType +
                 ", buySellType=" + buySellType +
                 ", currency='" + currency + '\'' +
                 ", counterParty='" + counterParty + '\'' +
+                ", description=" + description +
                 ", tradeEffectiveDate=" + tradeEffectiveDate +
                 ", tradeMaturityDate=" + tradeMaturityDate +
                 ", quantity=" + quantity +
@@ -148,6 +224,8 @@ public class FxTrade implements Trade{
                 ", compoundFrequency=" + compoundFrequency +
                 ", compoundFrequencyTerm=" + compoundFrequencyTerm +
                 ", paymentLength=" + paymentLength +
+                ", compoundInterest=" + compoundInterest +
+                ", annualInterestRate=" + annualInterestRate +
                 '}';
     }
 }
