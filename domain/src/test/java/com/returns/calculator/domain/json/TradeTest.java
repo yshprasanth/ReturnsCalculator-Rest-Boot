@@ -6,19 +6,23 @@ import org.junit.Before;
 /** 
 * Trade Tester. 
 * 
-* @author <Authors name> 
+* @author Sri Yalamanchili
 * @since <pre>Aug 21, 2017</pre> 
 * @version 1.0 
 */ 
 public class TradeTest { 
 
-@Before
-public void before() throws Exception { 
-} 
+    private Trade testObj;
 
-@After
-public void after() throws Exception { 
-} 
+    @Before
+    public void before() throws Exception {
+        testObj = new Trade();
+    }
+
+    @After
+    public void after() throws Exception {
+        testObj = null;
+    }
 
 
 } 

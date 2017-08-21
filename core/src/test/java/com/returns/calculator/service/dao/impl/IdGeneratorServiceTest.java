@@ -1,8 +1,15 @@
 package com.returns.calculator.service.dao.impl;
 
+import com.returns.calculator.domain.server.impl.FxTrade;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import javax.swing.text.html.Option;
+import java.util.Optional;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /** 
 * IdGeneratorService Tester. 
@@ -13,23 +20,29 @@ import org.junit.Test;
 */ 
 public class IdGeneratorServiceTest { 
 
-@Before
-public void before() throws Exception { 
-} 
+    private IdGeneratorService idGeneratorService = new IdGeneratorService();
 
-@After
-public void after() throws Exception { 
-} 
+    @Before
+    public void before() throws Exception {
+        idGeneratorService = new IdGeneratorService();
+    }
 
-/** 
-* 
-* Method: execute(Optional<FxTrade> trade) 
-* 
-*/ 
-@Test
-public void testExecute() throws Exception { 
-//TODO: Test goes here... 
-} 
+    @After
+    public void after() throws Exception {
+        idGeneratorService = null;
+    }
+
+    /**
+    *
+    * Method: execute(Optional<FxTrade> trade)
+    *
+    */
+    @Test
+    public void testExecute() throws Exception {
+        FxTrade trade = new FxTrade();
+        idGeneratorService.execute(Optional.of(trade));
+        assertNotNull(trade.getTradeId());
+    }
 
 
 } 

@@ -1,8 +1,16 @@
 package com.returns.calculator.service.interest.impl;
 
+import com.returns.calculator.builder.TradeBuilder;
+import com.returns.calculator.domain.metadata.StaticType;
+import com.returns.calculator.domain.server.impl.FxTrade;
+import com.returns.calculator.service.dao.impl.DAOService;
+import com.returns.calculator.service.exchange.impl.CurrencyExchangeService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.Optional;
+import static org.junit.Assert.*;
 
 /** 
 * InterestCalculatorService Tester. 
@@ -13,83 +21,41 @@ import org.junit.Test;
 */ 
 public class InterestCalculatorServiceTest { 
 
-@Before
-public void before() throws Exception { 
-} 
+    InterestCalculatorService interestCalculatorService;
+    CurrencyExchangeService currencyExchangeService;
+    DAOService daoService;
 
-@After
-public void after() throws Exception { 
-} 
+    @Before
+    public void before() throws Exception {
+        interestCalculatorService = new InterestCalculatorService();
 
-/** 
-* 
-* Method: execute(Optional<FxTrade> trade) 
-* 
-*/ 
-@Test
-public void testExecute() throws Exception { 
-//TODO: Test goes here... 
-} 
+        currencyExchangeService = new CurrencyExchangeService();
+        daoService = new DAOService();
+        daoService.loadStaticData(StaticType.CURRENCY_EXCHANGE);
+        currencyExchangeService.setDaoService(daoService);
 
+        interestCalculatorService.setCurrencyExchangeService(currencyExchangeService);
+    }
 
-/** 
-* 
-* Method: calcCompoundInterest(FxTrade trade) 
-* 
-*/ 
-@Test
-public void testCalcCompoundInterest() throws Exception { 
-//TODO: Test goes here... 
-/* 
-try { 
-   Method method = InterestCalculatorService.getClass().getMethod("calcCompoundInterest", FxTrade.class); 
-   method.setAccessible(true); 
-   method.invoke(<Object>, <Parameters>); 
-} catch(NoSuchMethodException e) { 
-} catch(IllegalAccessException e) { 
-} catch(InvocationTargetException e) { 
-} 
-*/ 
-} 
+    @After
+    public void after() throws Exception {
+        interestCalculatorService = null;
+    }
 
-/** 
-* 
-* Method: calcAnnualSimpleInterest(FxTrade trade) 
-* 
-*/ 
-@Test
-public void testCalcAnnualSimpleInterest() throws Exception { 
-//TODO: Test goes here... 
-/* 
-try { 
-   Method method = InterestCalculatorService.getClass().getMethod("calcAnnualSimpleInterest", FxTrade.class); 
-   method.setAccessible(true); 
-   method.invoke(<Object>, <Parameters>); 
-} catch(NoSuchMethodException e) { 
-} catch(IllegalAccessException e) { 
-} catch(InvocationTargetException e) { 
-} 
-*/ 
-} 
+    /**
+    *
+    * Method: execute(Optional<FxTrade> trade)
+    *
+    */
+    @Test
+    public void testExecute() throws Exception {
+        FxTrade fxTrade = new FxTrade();
+        TradeBuilder.buildFxTrade(fxTrade);
 
-/** 
-* 
-* Method: getCompoundingFrequency(Integer compoundFrequency, Term compoundFrequencyTerm) 
-* 
-*/ 
-@Test
-public void testGetCompoundingFrequency() throws Exception { 
-//TODO: Test goes here... 
-/* 
-try { 
-   Method method = InterestCalculatorService.getClass().getMethod("getCompoundingFrequency", Integer.class, Term.class); 
-   method.setAccessible(true); 
-   method.invoke(<Object>, <Parameters>); 
-} catch(NoSuchMethodException e) { 
-} catch(IllegalAccessException e) { 
-} catch(InvocationTargetException e) { 
-} 
-*/ 
-} 
+        interestCalculatorService.execute(Optional.of(fxTrade));
+
+        assertNotNull(fxTrade.getCompoundInterest());
+        assertNotNull(fxTrade.getAnnualSimpleInterest());
+    }
 
 } 

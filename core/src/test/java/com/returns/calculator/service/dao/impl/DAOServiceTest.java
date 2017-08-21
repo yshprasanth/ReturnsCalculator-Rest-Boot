@@ -1,8 +1,11 @@
 package com.returns.calculator.service.dao.impl;
 
+import com.returns.calculator.domain.metadata.StaticType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /** 
 * DAOService Tester. 
@@ -11,45 +14,41 @@ import org.junit.Test;
 * @since <pre>Aug 21, 2017</pre> 
 * @version 1.0 
 */ 
-public class DAOServiceTest { 
+public class DAOServiceTest {
 
-@Before
-public void before() throws Exception { 
-} 
+    DAOService daoService;
 
-@After
-public void after() throws Exception { 
-} 
+    @Before
+    public void before() throws Exception {
+        daoService = new DAOService();
+    }
 
-/** 
-* 
-* Method: execute(Optional<FxTrade> trade) 
-* 
-*/ 
-@Test
-public void testExecute() throws Exception { 
-//TODO: Test goes here... 
-} 
+    @After
+    public void after() throws Exception {
+        daoService = null;
+    }
 
-/** 
-* 
-* Method: loadStaticData(StaticType type) 
-* 
-*/ 
-@Test
-public void testLoadStaticData() throws Exception { 
-//TODO: Test goes here... 
-} 
+    /**
+    *
+    * Method: execute(Optional<FxTrade> trade)
+    *
+    */
+    @Test
+    public void testExecute() throws Exception {
 
-/** 
-* 
-* Method: getCurrencyExchangeToUSD(String currency) 
-* 
-*/ 
-@Test
-public void testGetCurrencyExchangeToUSD() throws Exception { 
-//TODO: Test goes here... 
-} 
+    }
+
+    /**
+    *
+    * Method: loadStaticData(StaticType type)
+    *
+    */
+    @Test
+    public void testLoadStaticData() throws Exception {
+        daoService.loadStaticData(StaticType.CURRENCY_EXCHANGE);
+
+        assertEquals(0.85d, daoService.getCurrencyExchangeToUSD("EUR"), 0.0d);
+    }
 
 
 } 

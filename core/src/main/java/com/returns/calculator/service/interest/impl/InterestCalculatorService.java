@@ -79,6 +79,17 @@ public class InterestCalculatorService implements IService<FxTrade> {
     }
 
     private int getCompoundingFrequency(Integer compoundFrequency, Term compoundFrequencyTerm) {
+        if(compoundFrequencyTerm==Term.Y) {
+            return 1;
+        } else if(compoundFrequencyTerm==Term.M) {
+            return 12/compoundFrequency;
+        }
+
         return 1;
     }
+
+    public void setCurrencyExchangeService(IService<FxTrade> currencyExchangeService) {
+        this.currencyExchangeService = currencyExchangeService;
+    }
+
 }

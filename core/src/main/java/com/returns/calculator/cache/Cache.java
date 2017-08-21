@@ -48,6 +48,14 @@ public class Cache<S extends String, T extends Trade> implements Serializable {
         return cacheInstance;
     }
 
+    public void init() {
+        cacheMap = new ConcurrentHashMap<>();
+    }
+
+    public void clear() {
+        cacheMap.clear();
+        cacheMap = null;
+    }
     private Map<Integer, T> getMap(S productType) {
         Map<Integer, T> map = null;
 
@@ -60,7 +68,10 @@ public class Cache<S extends String, T extends Trade> implements Serializable {
     private Collection<T> getAllTrades(S productType)  {
         Map<Integer, T> map = getMap(productType);
 
-        return map.values();
+        if(map!=null)
+            return map.values();
+        else
+            return null;
     }
 
     public void put(S productType, T trade)  {

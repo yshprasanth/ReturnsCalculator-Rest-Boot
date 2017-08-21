@@ -7,6 +7,7 @@ import com.returns.calculator.domain.server.impl.FxTrade;
 import com.returns.calculator.service.IService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Service
 @Qualifier("daoService")
-public class DAOService implements IService<FxTrade> {
+public class DAOService implements IService<FxTrade>, InitializingBean {
 
     Logger logger = LogManager.getLogger(getClass());
 
@@ -50,6 +51,11 @@ public class DAOService implements IService<FxTrade> {
         logger.info("successfully persisted trade: " + trade.get());
     }
 
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        loadStaticData(StaticType.CURRENCY_EXCHANGE);
+    }
+
     /**
      * Loads static data from database.
      *
@@ -57,12 +63,14 @@ public class DAOService implements IService<FxTrade> {
      */
     @Override
     public void loadStaticData(StaticType type) {
-        currencyToDollarConversionRateMap.putIfAbsent("USD", 1.0);
-        currencyToDollarConversionRateMap.putIfAbsent("EUR", 0.85);
-        currencyToDollarConversionRateMap.putIfAbsent("GBP", 1.08);
-        currencyToDollarConversionRateMap.putIfAbsent("INR", 80.0);
-        currencyToDollarConversionRateMap.putIfAbsent("AUD", 0.80);
-        currencyToDollarConversionRateMap.putIfAbsent("YEN", 200.0);
+        if(type==StaticType.CURRENCY_EXCHANGE) {
+            currencyToDollarConversionRateMap.putIfAbsent("USD", 1.0);
+            currencyToDollarConversionRateMap.putIfAbsent("EUR", 0.85);
+            currencyToDollarConversionRateMap.putIfAbsent("GBP", 1.08);
+            currencyToDollarConversionRateMap.putIfAbsent("INR", 80.0);
+            currencyToDollarConversionRateMap.putIfAbsent("AUD", 0.80);
+            currencyToDollarConversionRateMap.putIfAbsent("YEN", 200.0);
+        }
     }
 
     /**

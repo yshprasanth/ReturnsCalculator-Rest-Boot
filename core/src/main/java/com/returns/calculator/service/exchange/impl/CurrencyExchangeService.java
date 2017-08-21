@@ -26,6 +26,7 @@ public class CurrencyExchangeService implements IService<FxTrade>, InitializingB
     @Qualifier("daoService")
     IService<FxTrade> daoService;
 
+
     @Override
     public void execute(Optional<FxTrade> trade) throws Exception {
         if(trade.isPresent()) {
@@ -44,4 +45,9 @@ public class CurrencyExchangeService implements IService<FxTrade>, InitializingB
         daoService.loadStaticData(StaticType.CURRENCY_EXCHANGE);
         logger.info("Successfully loaded currency exchange static data !!");
     }
+
+    public void setDaoService(IService<FxTrade> daoService) {
+        this.daoService = daoService;
+    }
+
 }

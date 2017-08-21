@@ -61,4 +61,7 @@ public class FxTradeFactory implements ITradeFactory<FxTrade> {
         return Optional.ofNullable(trade);
     }
 
+    public void setTradeBuilder(ITradeBuilder<FxTrade> tradeBuilder) {
+        this.tradeBuilder = tradeBuilder;
+    }
 }

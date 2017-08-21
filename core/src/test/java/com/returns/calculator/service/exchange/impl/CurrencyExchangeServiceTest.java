@@ -21,25 +21,5 @@ public void before() throws Exception {
 public void after() throws Exception { 
 } 
 
-/** 
-* 
-* Method: execute(Optional<FxTrade> trade) 
-* 
-*/ 
-@Test
-public void testExecute() throws Exception { 
-//TODO: Test goes here... 
-} 
-
-/** 
-* 
-* Method: afterPropertiesSet() 
-* 
-*/ 
-@Test
-public void testAfterPropertiesSet() throws Exception { 
-//TODO: Test goes here... 
-} 
-
 
 } 
