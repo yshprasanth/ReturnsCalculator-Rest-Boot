@@ -13,12 +13,14 @@ Build:
   
 Run:
   - cd <root/parent project>/target
-  - java -jar rest-interface-1.0-SNAPSHOT.jar
+  - java -jar fx-returns-calc-rest-interface-1.0-SNAPSHOT.jar
   
 
 Results:
   - Rest Services:
-    -- http://localhost:8080/calculateReturns
+    -- http://localhost:8080/newTradeRequest
+    -- http://localhost:8080/listAllTradesForClient
+    -- http://localhost:8080/listAllTradesForProductType
   - Swagger UI: 
     -- http://localhost:8080/swagger-ui.html
   

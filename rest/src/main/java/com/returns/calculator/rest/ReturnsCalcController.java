@@ -53,7 +53,7 @@ public class ReturnsCalcController {
             @ApiResponse(code = 200, message = "Success", response = ResponseEntity.class),
             @ApiResponse(code = 500, message = "Error while processing", response = ResponseEntity.class)
     })
-    @RequestMapping(method= RequestMethod.GET, path="/newTradeRequest", produces = "application/json")
+    @RequestMapping(method= RequestMethod.GET, path="/listAllTradesForClient", produces = "application/json")
     public ResponseEntity<List<FxTrade>> listTradesForClient(@RequestParam String clientName) {
 
         ResponseEntity<List<FxTrade>> responseEntity = null;
