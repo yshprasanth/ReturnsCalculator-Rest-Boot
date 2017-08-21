@@ -1,14 +1,16 @@
 package com.returns.calculator.service.template.impl;
 
-import com.returns.calculator.domain.impl.FxTrade;
+import com.returns.calculator.domain.server.impl.FxTrade;
 import com.returns.calculator.domain.service.impl.Context;
-import com.returns.calculator.service.template.ITradeProcessor;
+import com.returns.calculator.service.template.AbstractTradeProcessor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
 @Component
-public class FxTradeProcessor extends ITradeProcessor<Context, FxTrade> {
+@Qualifier("fxTradeProcessor")
+public class FxTradeProcessor extends AbstractTradeProcessor<Context, FxTrade> {
 
     @Override
     protected Optional<FxTrade> createTrade(Optional<Context> context) throws Exception{

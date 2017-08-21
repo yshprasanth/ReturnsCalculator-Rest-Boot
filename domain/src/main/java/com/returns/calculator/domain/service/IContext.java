@@ -10,10 +10,12 @@ import java.util.Date;
 
 public interface IContext extends Serializable {
 
+    String getClientName();
     ProductType getProductType();
     BuySell getBuySell();
     String getCurrency();
     String getCounterParty();
+    String getDescription();
     Date getTradeEffectiveDate();
     Date getTradeMaturityDate();
     BigDecimal getQuantity();
@@ -23,10 +25,12 @@ public interface IContext extends Serializable {
     Term getCompoundFrequencyTerm();
     Integer getPaymentLength();
 
+    void setClientName(String clientName);
     void setProductType(ProductType productType);
     void setBuySell(BuySell buySell);
     void setCurrency(String currency);
     void setCounterParty(String counterParty);
+    void setDescription(String description);
     void setTradeEffectiveDate(Date tradeEffectiveDate);
     void setTradeMaturityDate(Date tradeMaturityDate);
     void setQuantity(BigDecimal quantity);

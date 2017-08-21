@@ -1,13 +1,15 @@
 package com.returns.calculator.service.builder.impl;
 
-import com.returns.calculator.domain.impl.FxTrade;
+import com.returns.calculator.domain.server.impl.FxTrade;
 import com.returns.calculator.domain.service.IContext;
 import com.returns.calculator.service.builder.ITradeBuilder;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
 @Component
+@Qualifier("fxTradeBuilder")
 public class FxTradeBuilder implements ITradeBuilder<FxTrade>{
 
     @Override
@@ -16,6 +18,7 @@ public class FxTradeBuilder implements ITradeBuilder<FxTrade>{
         if(context.isPresent()) {
             IContext innerContext = context.get();
 
+            innerTrade.setClientName(innerContext.getClientName());
             innerTrade.setProductType(innerContext.getProductType());
             innerTrade.setBuySellType(innerContext.getBuySell());
             innerTrade.setCurrency(innerContext.getCurrency());
@@ -28,6 +31,7 @@ public class FxTradeBuilder implements ITradeBuilder<FxTrade>{
             innerTrade.setAnnualInterestRate(innerContext.getAnnualInterestRate());
             innerTrade.setCompoundFrequencyTerm(innerContext.getCompoundFrequencyTerm());
             innerTrade.setPaymentLength(innerContext.getPaymentLength());
+            innerTrade.setDescription(innerContext.getDescription());
         }
     }
 }

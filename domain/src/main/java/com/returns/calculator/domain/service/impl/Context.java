@@ -12,10 +12,12 @@ public class Context implements IContext{
 
     private static final long serialVersionUID = -11L;
 
+    private String clientName;
     private ProductType productType;
     private BuySell buySellType;
     private String currency;
     private String counterParty;
+    private String description;
     private Date tradeEffectiveDate;
     private Date tradeMaturityDate;
     private BigDecimal quantity;
@@ -146,12 +148,34 @@ public class Context implements IContext{
     }
 
     @Override
+    public String getDescription() {
+        return this.description;
+    }
+
+    @Override
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Override
+    public String getClientName() {
+        return this.clientName;
+    }
+
+    @Override
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
+    }
+
+    @Override
     public String toString() {
         return "Context{" +
-                "productType=" + productType +
+                "clientName=" + clientName +
+                ", productType=" + productType +
                 ", buySellType=" + buySellType +
                 ", currency='" + currency + '\'' +
                 ", counterParty='" + counterParty + '\'' +
+                ", description='" + description + '\'' +
                 ", tradeEffectiveDate=" + tradeEffectiveDate +
                 ", tradeMaturityDate=" + tradeMaturityDate +
                 ", quantity=" + quantity +

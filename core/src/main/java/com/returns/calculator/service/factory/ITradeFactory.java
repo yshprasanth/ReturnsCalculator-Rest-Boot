@@ -1,6 +1,6 @@
 package com.returns.calculator.service.factory;
 
-import com.returns.calculator.domain.Trade;
+import com.returns.calculator.domain.server.Trade;
 import com.returns.calculator.domain.service.IContext;
 
 import java.util.Optional;
